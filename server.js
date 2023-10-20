@@ -1,3 +1,6 @@
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 const router = jsonServer.router('db.json')
@@ -8,9 +11,9 @@ const validator = (request, response, next) => {
 
   const { content } = request.body
 
-  if (request.method==='POST' && (!content || content.length<5) ) {
+  if (request.method === 'POST' && (!content || content.length < 5)) {
     return response.status(400).json({
-      error: 'too short anecdote, must have length 5 or more'
+      error: 'too short anecdote, must have length 5 or more',
     })
   } else {
     next()
