@@ -26,7 +26,7 @@ const AnecdoteForm = () => {
     dispatch({ type: 'SHOW', payload: `anecdote '${content}' created` })
     setTimeout(() => {
       dispatch({type: 'HIDE'})
-    }, 2000)
+    }, 5000)
     
   }
 

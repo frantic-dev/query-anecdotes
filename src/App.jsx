@@ -23,7 +23,7 @@ const App = () => {
     dispatch({ type: 'SHOW', payload: `anecdote '${anecdote.content}' voted` })
     setTimeout(() => {
       dispatch({type: 'HIDE'})
-    }, 2000)
+    }, 5000)
   }
 
   const result = useQuery({
