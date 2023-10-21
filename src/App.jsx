@@ -11,19 +11,22 @@ const App = () => {
 
   const addVote = useMutation({
     mutationFn: voteAnecdote,
-    onSuccess: () => {
+    onSuccess: anecdote => {
       queryClient.invalidateQueries({
         queryKey: ['anecdotes'],
       })
+      dispatch({
+        type: 'SHOW',
+        payload: `anecdote '${anecdote.content}' voted`,
+      })
+      setTimeout(() => {
+        dispatch({ type: 'HIDE' })
+      }, 5000)
     },
   })
 
   const handleVote = anecdote => {
     addVote.mutate({ ...anecdote, votes: anecdote.votes + 1 })
-    dispatch({ type: 'SHOW', payload: `anecdote '${anecdote.content}' voted` })
-    setTimeout(() => {
-      dispatch({type: 'HIDE'})
-    }, 5000)
   }
 
   const result = useQuery({
@@ -42,7 +45,7 @@ const App = () => {
   if (result.isError) {
     return <div>anecdote service not available due to problems in server</div>
   }
-  
+
   const anecdotes = result.data
   return (
     <div>
